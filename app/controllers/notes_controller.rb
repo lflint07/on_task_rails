@@ -3,6 +3,11 @@ class NotesController < ApplicationController
             notes = Note.all
             render json: notes
         end
+
+        def show
+            note= Note.find(params:[id])
+            render json: note
+        end
     
         def create
             note = Note.new(note_params)
@@ -30,13 +35,12 @@ class NotesController < ApplicationController
                 render json:{"message": "Couldn't delete note."}
             end
         end
-    
+        
+        private
         def note_params
-            params.require(:note).permit{:content, :note}
+            params.require(:note).permit(:content, :date, :planner_id)
         
         end
     
-    
-    end
     
 end
